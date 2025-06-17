@@ -1,91 +1,103 @@
 Task Manager
-A modern, full-stack Task Manager application designed to help you efficiently organize, track, and manage your daily tasks. Built with Next.js, TypeScript, MongoDB, and Tailwind CSS, this project demonstrates best practices in web development, clean UI design, and seamless integration with a NoSQL database.
+A web-based Task Manager application built for the Monk Mantra internship test. It allows users to create, view, and delete tasks with a responsive UI and RESTful API backend, using MongoDB for persistent storage. The app is deployed on Vercel and demonstrates clean project structure, robust error handling, and production-ready considerations.
+Features
 
-🚀 Features
-Add, edit, and delete tasks: Easily manage your to-do list with intuitive controls.
+Create Tasks: Add new tasks with a title and automatic creation date.
+View Tasks: Display all tasks stored in a MongoDB database.
+Delete Tasks: Remove tasks with a single click.
+Responsive Design: Optimized for desktop and mobile devices.
+Error Handling: Validates inputs and provides user-friendly error messages.
 
-Mark tasks as complete/incomplete: Stay on top of your progress.
+Live Demo
+Access the app at https://your-task-manager.vercel.app.
+Screenshot
+Below is a screenshot of the MongoDB database showing the tasks collection:
+https://res.cloudinary.com/dufvitqpb/image/upload/v1750171632/Screenshot_2025-06-17_201630_apoenp.png
 
-Statistics dashboard: View total, completed, and pending tasks at a glance.
+Technologies Used
 
-Responsive design: Optimized for desktops, tablets, and mobile devices.
-
-Modern UI: Styled with Tailwind CSS for a clean, professional look.
-
-🛠️ Tech Stack
-Technology	Purpose
-Next.js	React framework
-TypeScript	Type safety
-MongoDB	NoSQL database
-Mongoose	MongoDB ODM
-Tailwind	Styling
-📸 MongoDB Collection Screenshot
-![MongoDB Screenshot](https://res.cloudinary.com/dufvitqpb/image/upload/v1750171632/Screenshot_2025-06-17_ 🏁 Getting Started
-
-Prerequisites
-Node.js (v16+)
-
-npm or yarn
-
-MongoDB instance (local or Atlas)
+Frontend: React, Next.js
+Styling: Tailwind CSS (via Tailwind CLI for production optimization)
+Backend: Next.js API Routes
+Database: MongoDB (for persistent task storage)
+Deployment: Vercel
+Version Control: Git, GitHub
 
 Installation
-Clone the repository
 
-bash
-git clone https://github.com/shrinivash03/Task-Manger.git
+Clone the repository:git clone https://github.com/shrinivash03/Task-Manger.git
 cd Task-Manger
-Install dependencies
 
-bash
-npm install
-# or
-yarn install
-Configure environment variables
 
-Create a .env.local file in the root directory and add your MongoDB connection string:
+Install dependencies:npm install
 
-text
-MONGODB_URI=your_mongodb_connection_string
-Run the development server
 
-bash
-npm run dev
-# or
-yarn dev
+Set up MongoDB:
+Create a MongoDB Atlas account and set up a cluster.
+Add your MongoDB connection string to a .env.local file:MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/task-manager?retryWrites=true&w=majority
+
+
+
+
+Run the development server:npm run dev
+
+
 Open http://localhost:3000 in your browser.
 
-📂 Project Structure
-app/ — Next.js app directory
+Usage
 
-api/tasks/route.ts — API endpoints for task operations
+Enter a task title in the input field and click "Add Task" to create a task.
+View all tasks fetched from MongoDB in the list below.
+Click "Delete" next to a task to remove it.
+API endpoints:
+GET /api/tasks: Fetch all tasks from MongoDB.
+POST /api/tasks: Create a new task (body: { "title": "Task title" }).
+DELETE /api/tasks/:id: Delete a task by ID.
 
-components/ — Reusable UI components
 
-lib/mongodb.ts — MongoDB connection utility
 
-models/Task.ts — Mongoose schema for tasks
+Project Structure
+├── pages/
+│   ├── api/
+│   │   ├── tasks.js        # API route for GET/POST tasks
+│   │   ├── tasks/[id].js   # API route for DELETE tasks
+│   ├── index.js            # Frontend UI
+├── styles/
+│   ├── globals.css         # Tailwind CSS styles
+├── lib/
+│   ├── mongodb.js          # MongoDB connection logic
+├── tailwind.config.js      # Tailwind configuration
+├── .env.local              # Environment variables (MongoDB URI)
+├── package.json            # Dependencies and scripts
 
-page.tsx — Main application page
+Error Handling
 
-globals.css — Global styles
+Input Validation: Prevents empty task titles with a UI error message.
+API Errors: Returns HTTP status codes (e.g., 400 for invalid input, 404 for missing tasks) with JSON error messages.
+Database Errors: Handles MongoDB connection failures and query errors with user-friendly feedback.
+Network Errors: Caught and displayed to the user.
 
-📃 API Endpoints
-GET /api/tasks — Retrieve all tasks
+Security Considerations
 
-POST /api/tasks — Create a new task
+HTTPS: Enforced by Vercel for secure communication.
+Input Validation: Prevents invalid or malicious inputs.
+MongoDB Security: Uses environment variables for connection strings to avoid hardcoding credentials.For production enhancements:
+Sanitization: Implement sanitize-html to prevent XSS attacks.
+Authentication: Add JWT-based authentication for user-specific tasks.
+Rate Limiting: Use express-rate-limit for API protection.
 
-PATCH /api/tasks/:id — Update a task
+Future Improvements
+With additional time, I would: Implement task editing via a PUT API route and UI form.
+Add task categories or priorities.
+Write Jest unit tests for API routes and Cypress end-to-end tests for the UI.
+Enhance UI with loading states and animations (e.g., Framer Motion).
+Optimize MongoDB queries for better performance.
 
-DELETE /api/tasks/:id — Delete a task
+License
+This project is licensed under the MIT License. See LICENSE for details.
 
-🙌 Contributing
-Contributions are welcome! Please open an issue or submit a pull request for improvements or bug fixes.
 
-📄 License
-This project is open source and available under the MIT License.
-
-Developed by Shrinivash
-
-Empower your productivity with a simple, elegant, and powerful task manager.
-
+Contact
+Developed by SHRINIVASH.
+GitHub: shrinivash03
+Email: shrinivash.006@gmail.com
