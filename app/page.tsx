@@ -46,6 +46,14 @@ export default function Home() {
     fetchTasks();
   };
 
+  const deleteTask = async (id: string) => {
+    setLoading(true);
+    await fetch(`/api/tasks/${id}`, {
+      method: "DELETE",
+    });
+    fetchTasks();
+  };
+
   const completedCount = tasks.filter((t) => t.completed).length;
   const pendingCount = tasks.length - completedCount;
 
@@ -115,17 +123,28 @@ export default function Home() {
               <span className={`text-base ${t.completed ? "line-through text-gray-400" : "text-gray-800"}`}>
                 {t.text}
               </span>
-              <button
-                className={`ml-4 px-4 py-2 rounded-lg font-semibold transition ${
-                  t.completed
-                    ? "bg-green-100 text-green-600 cursor-default"
-                    : "bg-blue-500 text-white hover:bg-blue-600"
-                }`}
-                onClick={() => !t.completed && markDone(t._id, true)}
-                disabled={t.completed || loading}
-              >
-                {t.completed ? "Completed" : "Mark Done"}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  className={`px-4 py-2 rounded-lg font-semibold transition ${
+                    t.completed
+                      ? "bg-green-100 text-green-600 cursor-default"
+                      : "bg-blue-500 text-white hover:bg-blue-600"
+                  }`}
+                  onClick={() => !t.completed && markDone(t._id, true)}
+                  disabled={t.completed || loading}
+                >
+                  {t.completed ? "Completed" : "Mark Done"}
+                </button>
+                {t.completed && (
+                  <button
+                    className="px-4 py-2 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition"
+                    onClick={() => deleteTask(t._id)}
+                    disabled={loading}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>
